@@ -1,7 +1,14 @@
 require("dotenv").config();
-const express = require("express");
 const path = require("node:path");
+const express = require("express");
+const session = require("express-session");
+const bcryptjs = require("bcryptjs");
+const passport = require("passport");
+const pool = require("./db/pool");
 const indexRouter = require("./routes/indexRouter");
+
+const PgStore = require("connect-pg-simple")(session);
+require("./lib/passport");
 
 const PORT = process.env.PORT || 3000;
 
