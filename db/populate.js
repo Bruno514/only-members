@@ -10,19 +10,21 @@ if (!url) {
 const { Client } = require("pg");
 
 const sql = `
-create table if not exists messages (
-  id integer primary key generated always as identity,
-  username varchar ( 255 ),
-  text varchar ( 1024 ),
-  added timestamp DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  fullname VARCHAR ( 255 ) NOT NULL,
+  username VARCHAR ( 255 ) NOT NULL,
+  password VARCHAR ( 255 ) NOT NULL,
+  membership_status BOOLEAN NOT NULL
 );
 
-insert into messages (username, text) 
-values
-  ('bryan', 'hello world!'),
-  ('odin', 'hello there!'),
-  ('damon', 'hey wasup!');
-`;
+CREATE TABLE IF NOT EXISTS messages (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  title VARCHAR ( 255 ) NOT NULL,
+  text VARCHAR ( 1023 ) NOT NULL,
+  author INTEGER REFERENCES users (id) ON DELETE CASCADE NOT NULL,
+  timestamp TIMESTAMP
+);`;
 
 async function main() {
   console.log("seeding...");
