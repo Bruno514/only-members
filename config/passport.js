@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const pool = require("./database");
+const pool = require("../db/pool");
 const { validPassword } = require("../lib/passwordUtils");
 
 const verifyCallback = async (username, password, done) => {
@@ -9,8 +9,9 @@ const verifyCallback = async (username, password, done) => {
       "SELECT * FROM users WHERE username = $1",
       [username]
     );
+
     const user = rows[0];
-    const isValid = validPassword(password, user.hash, user.salt);
+    const isValid = validPassword(password);
 
     if (isValid) {
       return done(null, user);
@@ -37,7 +38,7 @@ passport.deserializeUser(async (id, done) => {
     ]);
     const user = rows[0];
 
-    done(null, user.id);
+    done(null, user);
   } catch (err) {
     done(err);
   }
