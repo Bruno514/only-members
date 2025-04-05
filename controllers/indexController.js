@@ -1,10 +1,11 @@
 const db = require("../db/queries");
+const { authMiddleware } = require("../middleware/authMiddleware");
 
-async function indexGet(req, res) {
-  res.render("index", {
-    title: "Index Page",
-    format: format,
-  });
-}
-
-module.exports = { indexGet };
+exports.indexGet = [
+  authMiddleware,
+  (req, res) => {
+    res.render("index", {
+      title: "Index Page",
+    });
+  },
+];

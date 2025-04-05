@@ -11,7 +11,7 @@ const verifyCallback = async (username, password, done) => {
     );
 
     const user = rows[0];
-    const isValid = validPassword(password);
+    const isValid = await validPassword(password, user.password);
 
     if (isValid) {
       return done(null, user);
