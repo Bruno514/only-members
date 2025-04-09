@@ -1,6 +1,7 @@
 const { body, validationResult } = require("express-validator");
 const { genPassword } = require("../lib/passwordUtils");
 const pool = require("../db/pool");
+const passport = require("passport");
 
 const signupValidator = [
   body("password").isLength({ min: 5 }).withMessage("Password too short"),
@@ -12,7 +13,7 @@ const signupValidator = [
 ];
 
 exports.signupGet = (req, res) => {
-  res.render("signup");
+  res.render("auth/signup");
 };
 
 exports.signupPost = [
@@ -44,5 +45,21 @@ exports.signupPost = [
 ];
 
 exports.loginGet = (req, res) => {
-  res.render("login");
+  res.render("auth/login");
+};
+
+exports.loginPost = (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/auth/login",
+  })(req, res, next);
+};
+
+exports.logoutGet = (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/auth/login");
+  });
 };
