@@ -13,7 +13,7 @@ const sql = `
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   fullname VARCHAR ( 255 ) NOT NULL,
-  username VARCHAR ( 255 ) NOT NULL,
+  username VARCHAR ( 255 ) NOT NULL UNIQUE,
   password VARCHAR ( 255 ) NOT NULL,
   membership_status BOOLEAN NOT NULL
 );
