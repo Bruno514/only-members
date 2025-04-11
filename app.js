@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
-app.use("/message", messageRouter);
+app.use("/messages", messageRouter);
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}`);
