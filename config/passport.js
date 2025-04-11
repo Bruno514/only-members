@@ -2,15 +2,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const pool = require("../db/pool");
 const { validPassword } = require("../lib/passwordUtils");
+const db = require("../db/queries");
 
 const verifyCallback = async (username, password, done) => {
   try {
-    const { rows } = await pool.query(
-      "SELECT * FROM users WHERE username = $1",
-      [username]
-    );
-
-    const user = rows[0];
+    const user = await db.getUserByUsername(username);
     const isValid = await validPassword(password, user.password);
 
     if (isValid) {

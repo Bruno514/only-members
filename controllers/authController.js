@@ -2,6 +2,7 @@ const { body, validationResult } = require("express-validator");
 const { genPassword } = require("../lib/passwordUtils");
 const pool = require("../db/pool");
 const passport = require("passport");
+const db = require("../db/queries");
 
 const signupValidator = [
   body("password").isLength({ min: 5 }).withMessage("Password too short"),
@@ -32,10 +33,9 @@ exports.signupPost = [
 
     try {
       const hashedPassword = await genPassword(password);
-      await pool.query(
-        "insert into users (username, fullname, password) values ($1, $2, $3)",
-        [username, fullname, hashedPassword]
-      );
+
+      db.insertUser(username, fullname, hashedPassword);
+
       res.redirect("/");
     } catch (error) {
       console.error(error);

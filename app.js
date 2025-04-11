@@ -6,6 +6,7 @@ const passport = require("passport");
 const pool = require("./db/pool");
 const indexRouter = require("./routes/indexRouter");
 const authRouter = require("./routes/authRouter");
+const messageRouter = require("./routes/messageRouter");
 const protectedRouteMiddleware = require("./middleware/authMiddleware");
 
 const PgStore = require("connect-pg-simple")(session);
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
+app.use("/message", messageRouter);
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}`);
