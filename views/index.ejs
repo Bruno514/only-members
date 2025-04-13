@@ -8,12 +8,12 @@
   </head>
   <body>
     <main>
-      <section>
-        <h1>What's up <%= locals.currentUser.username%>?</h1>
+      <h1>What's up <%= locals.currentUser.username %>?</h1>
 
-        <!-- Posts -->
-        <article></article>
-        <!-- ==== -->
+      <section>
+        <h1>Messages</h1>
+        <% messages.forEach(msg => { %> <%- include("partials/message", {msg:
+        msg}) %> <%}); %>
       </section>
     </main>
   </body>

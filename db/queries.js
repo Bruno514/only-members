@@ -23,7 +23,9 @@ exports.insertUser = async (username, fullname, hashedPassword) => {
 };
 
 exports.getAllMessages = async () => {
-  const { rows } = await pool.query("SELECT * FROM messages");
+  const { rows } = await pool.query(
+    "SELECT * FROM messages m JOIN users u ON m.author = u.id"
+  );
 
   return rows;
 };
