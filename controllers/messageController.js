@@ -39,18 +39,6 @@ exports.getMessageIndex = [
   },
 ];
 
-exports.getMessageNew = [
-  (req, res) => {
-    if (!req.user.membership_status) {
-      res.redirect("/messages");
-    } else {
-      res.render("messages/new", {
-        title: "New message",
-      });
-    }
-  },
-];
-
 exports.postMessage = [
   messageValidator,
   async (req, res) => {
