@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS messages (
   title VARCHAR ( 255 ) NOT NULL,
   text VARCHAR ( 1023 ) NOT NULL,
   author INTEGER REFERENCES users (id) ON DELETE CASCADE NOT NULL,
-  timestamp TIMESTAMP
+  timestamp TIMESTAMP DEFAULT current_timestamp,
 );`;
 
 async function main() {

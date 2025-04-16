@@ -1,4 +1,12 @@
 <article>
   <h1><%=msg.title%></h1>
   <p><%=msg.text%></p>
+
+  <% if (msg.username) { %>
+    <span><%=msg.username%></span>
+  <% } %> 
+  
+  <% if (msg.timestamp) { %>
+    <span><%=msg.timestamp%></span>
+  <% } %>
 </article>

@@ -21,21 +21,44 @@ const messageValidator = [
     .escape(),
 ];
 
+exports.getMessageIndex = [
+  authMiddleware,
+  async (req, res) => {
+    let messages = await db.getAllMessages();
+
+    if (!req.user.membership_status) {
+      messages = messages.map((msg) => {
+        return { title: msg.title, text: msg.text };
+      });
+    }
+
+    res.render("messages/index", {
+      title: "Messages",
+      messages: messages,
+    });
+  },
+];
+
 exports.getMessageNew = [
   (req, res) => {
-    res.render("messages/new", {
-      title: "New message",
-    });
+    if (!req.user.membership_status) {
+      res.redirect("/messages");
+    } else {
+      res.render("messages/new", {
+        title: "New message",
+      });
+    }
   },
 ];
 
 exports.postMessage = [
   messageValidator,
   async (req, res) => {
-    const { text, title } = req.body;
+    if (req.user.membership_status) {
+      const { text, title } = req.body;
+      await db.insertMessage(req.user.id, title, text);
+    }
 
-    await db.insertMessage(req.user.id, title, text);
-
-    res.redirect("/");
+    res.redirect("/messages");
   },
 ];

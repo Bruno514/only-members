@@ -22,6 +22,7 @@
           name="fullname"
           placeholder="fullname"
           type="text"
+          required
         />
         <label for="username">Username</label>
         <input
@@ -29,18 +30,29 @@
           name="username"
           placeholder="username"
           type="text"
+          required
         />
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" />
+        <input
+          required
+          id="password"
+          name="password"
+          type="password"
+          placeholder="password"
+        />
         <label for="password">Confirm Password</label>
         <input
           id="passwordConfirmation"
           name="passwordConfirmation"
           type="password"
+          placeholder="password confirmation"
+          required
         />
 
         <button type="submit">Sign Up</button>
       </form>
+
+      <a href="/auth/login">Already have an account?</a>
     </main>
   </body>
 </html>

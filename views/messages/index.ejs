@@ -8,8 +8,14 @@
   </head>
   <body>
     <main>
-      <h1>Take a look at some strangers' posts!</h1>
-      <a href="/messages">Go!</a>
+      <h1>What's up <%= locals.currentUser.username %>?</h1>
+
+      <section>
+        <h1>Messages</h1>
+        <% messages.forEach(msg => { %> <%- include("../partials/message", {msg:
+        msg}) %> <%}); %>
+      </section>
     </main>
   </body>
 </html>
+

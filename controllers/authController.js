@@ -36,7 +36,7 @@ exports.signupPost = [
 
       db.insertUser(username, fullname, hashedPassword);
 
-      res.redirect("/");
+      res.redirect("/messages");
     } catch (error) {
       console.error(error);
       next(error);
@@ -50,7 +50,7 @@ exports.loginGet = (req, res) => {
 
 exports.loginPost = (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/messages",
     failureRedirect: "/auth/login",
   })(req, res, next);
 };

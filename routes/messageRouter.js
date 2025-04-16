@@ -3,8 +3,8 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 const messageController = require("../controllers/messageController");
 const messageRouter = Router();
 
-messageRouter.use(authMiddleware);
-messageRouter.get("/new", messageController.getMessageNew);
-messageRouter.post("/new", messageController.postMessage);
+messageRouter.get("/", messageController.getMessageIndex);
+messageRouter.get("/new", authMiddleware, messageController.getMessageNew);
+messageRouter.post("/new", authMiddleware, messageController.postMessage);
 
 module.exports = messageRouter;

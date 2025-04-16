@@ -30,6 +30,15 @@ exports.getAllMessages = async () => {
   return rows;
 };
 
+exports.getMessageById = async (id) => {
+  const { rows } = await pool.query(
+    "SELECT * FROM messages m JOIN users u ON m.author = u.id WHERE m.id = $1",
+    [id]
+  );
+
+  return rows[0];
+};
+
 exports.insertMessage = async (usernameId, title, text) => {
   await pool.query(
     `INSERT INTO messages (title, text, author) VALUES ($1, $2, $3)`,
