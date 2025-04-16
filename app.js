@@ -7,7 +7,9 @@ const pool = require("./db/pool");
 const indexRouter = require("./routes/indexRouter");
 const authRouter = require("./routes/authRouter");
 const messageRouter = require("./routes/messageRouter");
+const membershipController = require("./routes/membershipRouter");
 const protectedRouteMiddleware = require("./middleware/authMiddleware");
+const membershipRouter = require("./routes/membershipRouter");
 
 const PgStore = require("connect-pg-simple")(session);
 require("./config/passport");
@@ -49,6 +51,7 @@ app.use((req, res, next) => {
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/messages", messageRouter);
+app.use("/membership", membershipRouter);
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}`);

@@ -1,4 +1,3 @@
-const { authMiddleware } = require("../middleware/authMiddleware");
 const pool = require("./pool");
 
 exports.getUserByUsername = async (username) => {
@@ -44,4 +43,10 @@ exports.insertMessage = async (usernameId, title, text) => {
     `INSERT INTO messages (title, text, author) VALUES ($1, $2, $3)`,
     [title, text, usernameId]
   );
+};
+
+exports.setMembershipToId = async (usernameId) => {
+  await pool.query("UPDATE users SET membership_status = True WHERE id = $1", [
+    usernameId,
+  ]);
 };

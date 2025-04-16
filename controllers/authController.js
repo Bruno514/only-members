@@ -1,6 +1,5 @@
 const { body, validationResult } = require("express-validator");
 const { genPassword } = require("../lib/passwordUtils");
-const pool = require("../db/pool");
 const passport = require("passport");
 const db = require("../db/queries");
 
