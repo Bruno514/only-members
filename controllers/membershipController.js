@@ -1,6 +1,7 @@
 const { body, validationResult} = require("express-validator");
 const { authMiddleware } = require("../middleware/authMiddleware");
 const db = require("../db/queries");
+const asyncHandler = require("express-async-handler");
 
 const wrongError = "Wrong answer.";
 
@@ -37,7 +38,7 @@ exports.getMembershipSuccess= [
 exports.membershipPost = [
   authMiddleware,
   answerValidator,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (req.user.membership_status) {
       res.redirect("/messages");
@@ -52,5 +53,5 @@ exports.membershipPost = [
 
     db.setMembershipToId(req.user.id)
     res.redirect("membership/success")
-  },
+  }),
 ];

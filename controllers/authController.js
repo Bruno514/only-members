@@ -2,8 +2,11 @@ const { body, validationResult } = require("express-validator");
 const { genPassword } = require("../lib/passwordUtils");
 const passport = require("passport");
 const db = require("../db/queries");
+const asyncHandler = require("express-async-handler");
 
 const signupValidator = [
+  body("fullname"),
+  body("username"),
   body("password").isLength({ min: 5 }).withMessage("Password too short"),
   body("passwordConfirmation")
     .custom((value, { req }) => {
@@ -18,7 +21,7 @@ exports.signupGet = (req, res) => {
 
 exports.signupPost = [
   signupValidator,
-  async (req, res, next) => {
+  asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -40,7 +43,7 @@ exports.signupPost = [
       console.error(error);
       next(error);
     }
-  },
+  }),
 ];
 
 exports.loginGet = (req, res) => {

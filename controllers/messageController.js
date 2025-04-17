@@ -1,6 +1,7 @@
 const db = require("../db/queries");
 const { body } = require("express-validator");
 const { authMiddleware } = require("../middleware/authMiddleware");
+const asyncHandler = require("express-async-handler");
 
 const emptyError = "can not be empty";
 const lengthError = "can not be too long";
@@ -23,7 +24,7 @@ const messageValidator = [
 
 exports.getMessageIndex = [
   authMiddleware,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     let messages = await db.getAllMessages();
 
     if (!req.user.membership_status) {
@@ -36,17 +37,17 @@ exports.getMessageIndex = [
       title: "Messages",
       messages: messages,
     });
-  },
+  }),
 ];
 
 exports.postMessage = [
   messageValidator,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     if (req.user.membership_status) {
       const { text, title } = req.body;
       await db.insertMessage(req.user.id, title, text);
     }
 
     res.redirect("/messages");
-  },
+  }),
 ];

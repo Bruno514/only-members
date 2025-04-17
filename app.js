@@ -53,6 +53,21 @@ app.use("/auth", authRouter);
 app.use("/messages", messageRouter);
 app.use("/membership", membershipRouter);
 
+// Missing routes forwarder 
+app.use("*", (req, res, next) => {
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// Error handler middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res
+    .status(err.status)
+    .render("error", { title: `Error ${err.status}`, error: err });
+});
+
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}`);
 });
