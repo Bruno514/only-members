@@ -1,4 +1,5 @@
 require("dotenv").config();
+const moment = require("moment")
 const path = require("node:path");
 const express = require("express");
 const session = require("express-session");
@@ -7,8 +8,6 @@ const pool = require("./db/pool");
 const indexRouter = require("./routes/indexRouter");
 const authRouter = require("./routes/authRouter");
 const messageRouter = require("./routes/messageRouter");
-const membershipController = require("./routes/membershipRouter");
-const protectedRouteMiddleware = require("./middleware/authMiddleware");
 const membershipRouter = require("./routes/membershipRouter");
 
 const PgStore = require("connect-pg-simple")(session);
@@ -41,9 +40,10 @@ app.use(
 
 app.use(passport.session());
 
-// Set user variable for use in EJS templates
+// Set user variable for use in EJS templates and inject momement lib
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.moment = moment
   next();
 });
 
@@ -53,7 +53,7 @@ app.use("/auth", authRouter);
 app.use("/messages", messageRouter);
 app.use("/membership", membershipRouter);
 
-// Missing routes forwarder 
+// Missing routes forwarder
 app.use("*", (req, res, next) => {
   const err = new Error("Not Found");
   err.status = 404;
