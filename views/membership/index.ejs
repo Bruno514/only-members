@@ -2,6 +2,7 @@
 <html lang="en">
   <%- include("../partials/head") %>
   <body>
+    <%- include("../partials/navbar") %>
     <main>
       <h2>Want to become a member? Answer the following riddle:</h2>
       <p>
@@ -20,7 +21,7 @@
       <%}%>
 
       <form action="/membership" method="post">
-        <input type="text" name="answer" id="answer" placeholder="Answer"/>
+        <input type="text" name="answer" id="answer" placeholder="Answer" />
         <button type="submit">Send answer</button>
       </form>
     </main>
