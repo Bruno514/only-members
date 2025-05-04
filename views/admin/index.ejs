@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partials/head") %>
+  <body>
+    <main>
+      <h2>Gain admin access by typing the correct password:</h2>
+
+      <%if (locals.errors) { %>
+      <ul>
+        <% errors.forEach(error => { %>
+        <li><%=error.msg%></li>
+        <% }) %>
+      </ul>
+      <%}%>
+
+      <form action="/admin" method="post">
+        <input type="text" name="password" id="password" placeholder="Password"/>
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+  </body>
+</html>

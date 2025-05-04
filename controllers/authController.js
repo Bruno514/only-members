@@ -3,6 +3,7 @@ const { genPassword } = require("../lib/passwordUtils");
 const passport = require("passport");
 const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
+const { options } = require("pg/lib/defaults");
 
 const signupValidator = [
   body("fullname"),
@@ -16,7 +17,7 @@ const signupValidator = [
 ];
 
 exports.signupGet = (req, res) => {
-  res.render("auth/signup");
+  res.render("auth/signup", { title: "Sign up" });
 };
 
 exports.signupPost = [
@@ -47,15 +48,25 @@ exports.signupPost = [
 ];
 
 exports.loginGet = (req, res) => {
-  res.render("auth/login");
+  if (req.session.messages) {
+    res.render("auth/login", {
+      title: "Login",
+      errors: [req.session.messages[req.session.messages.length - 1]],
+    });
+  } else {
+    res.render("auth/login", {
+      title: "Login",
+    });
+  }
 };
 
-exports.loginPost = (req, res, next) => {
+exports.loginPost = [
   passport.authenticate("local", {
     successRedirect: "/messages",
     failureRedirect: "/auth/login",
-  })(req, res, next);
-};
+    failureMessage: true,
+  }),
+];
 
 exports.logoutGet = (req, res) => {
   req.logout((err) => {

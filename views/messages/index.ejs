@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
-    <title><%= title %></title>
-  </head>
+  <%- include("../partials/head") %>
   <body>
     <main>
       <h1>What's up <%= locals.currentUser.username %>?</h1>
@@ -13,20 +8,31 @@
       <%if (locals.currentUser.membership_status) { %>
       <form action="/messages/new" method="post">
         <label for="title">
-          <p>Message title</p>
-          <input type="text" name="title" id="title" />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Title"
+            required
+          />
         </label>
         <label for="text">
-          <p>Message text</p>
-          <textarea name="text" id="text" required></textarea>
+          <textarea
+            name="text"
+            id="text"
+            required
+            placeholder="Message"
+          ></textarea>
         </label>
-        <button type="submit">Submit message</button>
+        <button class="primary" type="submit">Submit message</button>
       </form>
       <%} %>
 
-      <section>
+      <section class="messages">
         <h2>Messages</h2>
-        <% messages.forEach(msg => { %> <%- include("../partials/message", {msg:
+        <% if (!locals.currentUser.membership_status) { %>
+        <a href="/membership">Become a member! </a><%} %> <%
+        messages.forEach(msg => { %> <%- include("../partials/message", {msg:
         msg}) %> <%}); %>
       </section>
     </main>

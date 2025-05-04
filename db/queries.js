@@ -50,3 +50,9 @@ exports.setMembershipToId = async (usernameId) => {
     usernameId,
   ]);
 };
+
+exports.setAdminToId = async (usernameId) => {
+  await pool.query("UPDATE users SET is_admin = True WHERE id = $1", [
+    usernameId,
+  ]);
+};

@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%=title%></title>
-  </head>
+  <%- include("../partials/head") %>
   <body>
-    <h2>Want to become a member? Answer the following riddle:</h2>
-    <p>
-      I can be true, I can be false,<br />
-      Yet I’m not a lie at all.<br />
-      You’ll find me in every logic gate,<br />
-      And every <code>if</code> that seals your fate.<br />
-    </p>
+    <main>
+      <h2>Want to become a member? Answer the following riddle:</h2>
+      <p>
+        I can be true, I can be false,<br />
+        Yet I’m not a lie at all.<br />
+        You’ll find me in every logic gate,<br />
+        And every <code>if</code> that seals your fate.<br />
+      </p>
 
-    <%if (locals.errors) { %>
-    <ul>
-      <% errors.forEach(error => { %>
-      <li><%=error.msg%></li>
-      <% }) %>
-    </ul>
-    <%}%>
+      <%if (locals.errors) { %>
+      <ul>
+        <% errors.forEach(error => { %>
+        <li><%=error.msg%></li>
+        <% }) %>
+      </ul>
+      <%}%>
 
-    <form action="/membership" method="post">
-      <label for="answer">
-        Answer
-        <input type="text" name="answer" id="answer" />
-      </label>
-      <button type="submit">Send answer</button>
-    </form>
+      <form action="/membership" method="post">
+        <input type="text" name="answer" id="answer" placeholder="Answer"/>
+        <button type="submit">Send answer</button>
+      </form>
+    </main>
   </body>
 </html>

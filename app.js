@@ -1,5 +1,5 @@
 require("dotenv").config();
-const moment = require("moment")
+const moment = require("moment");
 const path = require("node:path");
 const express = require("express");
 const session = require("express-session");
@@ -9,6 +9,7 @@ const indexRouter = require("./routes/indexRouter");
 const authRouter = require("./routes/authRouter");
 const messageRouter = require("./routes/messageRouter");
 const membershipRouter = require("./routes/membershipRouter");
+const adminRouter = require("./routes/adminRouter");
 
 const PgStore = require("connect-pg-simple")(session);
 require("./config/passport");
@@ -43,7 +44,7 @@ app.use(passport.session());
 // Set user variable for use in EJS templates and inject momement lib
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
-  res.locals.moment = moment
+  res.locals.moment = moment;
   next();
 });
 
@@ -52,6 +53,7 @@ app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/messages", messageRouter);
 app.use("/membership", membershipRouter);
+app.use("/admin", adminRouter);
 
 // Missing routes forwarder
 app.use("*", (req, res, next) => {

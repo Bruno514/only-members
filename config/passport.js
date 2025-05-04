@@ -6,12 +6,16 @@ const db = require("../db/queries");
 const verifyCallback = async (username, password, done) => {
   try {
     const user = await db.getUserByUsername(username);
+    
+    if (!user) {
+      return done(null, false, {message: 'Invalid username.'});
+    }
     const isValid = await validPassword(password, user.password);
 
     if (isValid) {
       return done(null, user);
     } else {
-      return done(null, false);
+      return done(null, false, {message: 'Invalid password.'});
     }
   } catch (err) {
     return done(err);

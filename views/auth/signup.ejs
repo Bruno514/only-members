@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Sign Up</title>
-  </head>
+  <%- include("../partials/head") %>
   <body>
     <main>
       <% if (locals.errors) {%>
@@ -14,42 +11,38 @@
       </ul>
       <% }%>
 
-      <h1>Sign Up</h1>
       <form action="/auth/signup" method="POST">
-        <label for="username">Full Name</label>
+        <h1>Sign Up</h1>
         <input
           id="fullname"
           name="fullname"
-          placeholder="fullname"
+          placeholder="Fullname"
           type="text"
           required
         />
-        <label for="username">Username</label>
         <input
           id="username"
           name="username"
-          placeholder="username"
+          placeholder="Username"
           type="text"
           required
         />
-        <label for="password">Password</label>
         <input
           required
           id="password"
           name="password"
           type="password"
-          placeholder="password"
+          placeholder="Password"
         />
-        <label for="password">Confirm Password</label>
         <input
           id="passwordConfirmation"
           name="passwordConfirmation"
           type="password"
-          placeholder="password confirmation"
+          placeholder="Password confirmation"
           required
         />
 
-        <button type="submit">Sign Up</button>
+        <button class="primary" type="submit">Sign Up</button>
       </form>
 
       <a href="/auth/login">Already have an account?</a>

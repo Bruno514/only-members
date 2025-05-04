@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-  </head>
+  <%- include("../partials/head") %>
   <body>
     <main>
-      <h1>Please log in</h1>
       <form action="/auth/login" method="POST">
-        <label for="username">Username</label>
+        <h1>Login</h1>
+        <% if (locals.errors) {%>
+        <ul>
+          <% errors.forEach(error => { %>
+          <li><%= error%></li>
+          <%}); %>
+        </ul>
+        <% }%>
+
         <input
           id="username"
           name="username"
-          placeholder="username"
+          placeholder="Username"
           type="text"
         />
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" />
-        <button type="submit">Log In</button>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
+
+        <button class="primary" type="submit">Log In</button>
       </form>
       <a href="/auth/signup">Don't have an account yet?</a>
     </main>

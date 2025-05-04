@@ -27,15 +27,18 @@ exports.getMessageIndex = [
   asyncHandler(async (req, res) => {
     let messages = await db.getAllMessages();
 
-    if (!req.user.membership_status) {
+    if (!req.user.membership_status && !req.user.is_admin) {
       messages = messages.map((msg) => {
         return { title: msg.title, text: msg.text };
       });
     }
 
+    messages.reverse();
+
     res.render("messages/index", {
       title: "Messages",
       messages: messages,
+      user: req.user,
     });
   }),
 ];

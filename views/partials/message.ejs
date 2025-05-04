@@ -1,12 +1,24 @@
-<article>
-  <h1><%=msg.title%></h1>
+<article class="message">
+  <h3><%=msg.title%></h3>
+
   <p><%=msg.text%></p>
 
   <% if (msg.username) { %>
-    <span><%=msg.username%></span>
-  <% } %> 
-  
-  <% if (msg.timestamp) { %>
-    <span><%=msg.timestamp%></span>
+  <div class="container">
+    <img src="/icons/person.svg" alt="" />
+    <span class="message-user"><%=msg.username%></span>
+  </div>
+  <% } %> <% if (msg.timestamp) { %>
+  <div class="container">
+    <img src="/icons/clock.svg" alt="" />
+    <span class="message-timestamp"
+      ><%=locals.moment(msg.timestamp).fromNow()%></span
+    >
+  </div>
+
+  <% } %> <% if (user.is_admin) { %>
+  <form action="/messages/delete" method="post">
+    <button class="danger" type="submit">Delete</button>
+  </form>
   <% } %>
 </article>
