@@ -1,0 +1,26 @@
+<nav>
+  <ul>
+    <% if (currentUser) { %>
+    <li>
+      <a href="/messages">Home</a>
+    </li>
+    <li>
+      <a href="/admin">Admin</a>
+    </li>
+
+    <li>
+      <a href="/membership">Membership</a>
+    </li>
+    <li class="log-out">
+      <a href="/auth/log-out">Log out</a>
+    </li>
+    <% } else { %>
+    <li>
+      <a href="/auth/login">Login</a>
+    </li>
+    <li>
+      <a href="/auth/sign-up">Sign up</a>
+    </li>
+    <% } %>
+  </ul>
+</nav>

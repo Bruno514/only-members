@@ -54,3 +54,16 @@ exports.postMessage = [
     res.redirect("/messages");
   }),
 ];
+
+exports.deleteMessage = [
+  asyncHandler(async (req, res) => {
+    if (req.user.is_admin) {
+      const { id } = req.params;
+      console.log(id)
+      await db.deleteMessage(id);
+    }
+    console.log(3)
+
+    res.redirect("/messages");
+  }),
+];

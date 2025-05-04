@@ -23,7 +23,7 @@ exports.insertUser = async (username, fullname, hashedPassword) => {
 
 exports.getAllMessages = async () => {
   const { rows } = await pool.query(
-    "SELECT * FROM messages m JOIN users u ON m.author = u.id"
+    "SELECT m.id, m.title, m.text, m.timestamp, u.username, u.fullname FROM messages m JOIN users u ON m.author = u.id"
   );
 
   return rows;
@@ -43,6 +43,10 @@ exports.insertMessage = async (usernameId, title, text) => {
     `INSERT INTO messages (title, text, author) VALUES ($1, $2, $3)`,
     [title, text, usernameId]
   );
+};
+
+exports.deleteMessage = async (id) => {
+  await pool.query(`DELETE FROM messages WHERE id = $1`, [id]);
 };
 
 exports.setMembershipToId = async (usernameId) => {

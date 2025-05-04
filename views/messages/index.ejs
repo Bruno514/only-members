@@ -2,6 +2,7 @@
 <html lang="en">
   <%- include("../partials/head") %>
   <body>
+    <%- include("../partials/navbar") %>
     <main>
       <h1>What's up <%= locals.currentUser.username %>?</h1>
 
@@ -31,9 +32,9 @@
       <section class="messages">
         <h2>Messages</h2>
         <% if (!locals.currentUser.membership_status) { %>
-        <a href="/membership">Become a member! </a><%} %> <%
-        messages.forEach(msg => { %> <%- include("../partials/message", {msg:
-        msg}) %> <%}); %>
+        <a href="/membership">Become a member! </a>
+        <%} %> <% messages.forEach(msg => { %> <%-
+        include("../partials/message", {msg:msg}) %> <%}); %>
       </section>
     </main>
   </body>

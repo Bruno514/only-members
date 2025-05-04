@@ -26,6 +26,8 @@
   --neutral-500: #808080;
   --neutral-700: #4c4c4c;
   --neutral-800: #333333;
+  --neutral-850: hsl(0, 0%, 15%);
+  --neutral-870: hsl(0, 0%, 10%);
   --neutral-900: #000000;
   --button-primary: hsl(197 100% 50%);
   --button-secondary: hsl(110, 100%, 50%);
@@ -146,4 +148,39 @@ button.danger {
 
 form h1{
   margin-bottom: var(--space-l);
+}
+
+nav {
+  border-bottom: var(--neutral-500) solid 2px;
+  padding: var(--space-xs);
+  margin-bottom: var(--space-m);
+  position: sticky;
+  top: 0;
+  background-color: var(--neutral-800);
+}
+
+nav ul {
+  max-width: 1024px;
+  margin-inline: auto;
+  list-style: none;
+  display: flex;
+  gap: var(--space-s);
+}
+
+nav li {
+  font-size: var(--step--1);
+  background-color: var(--neutral-850);
+  padding: var(--space-3xs);
+  border: var(--neutral-500) solid 1px;
+  border-radius: var(--space-3xs);
+}
+nav li:hover, nav li:active {
+  background-color: var(--neutral-870);
+}
+nav li a {
+  text-decoration: none;
+}
+
+nav li.log-out {
+  margin-left: auto;
 }
